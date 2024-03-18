@@ -1,0 +1,35 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Genre</th>
+        <th></th>
+    </tr>
+    @for(int i=0;i<Model.Rows.Count;i++)
+            {
+        <tr>
+            <td> @Model.Rows[i][0]</td>
+            <td>  @Model.Rows[i][1]</td>
+            <td>
+                <a href="@Url.Action("Edit","Library",new { @id = @Model.Rows[i][0] })">Edit</a>
+                <a href="@Url.Action("DeleteAll","Book",new { @id = @Model.Rows[i][0] })">Delete</a>
+            </td>
+        </tr>
+            }
+    
+</table>
+<div>
+  
+        <form action="@Url.Action("index1","Book")" method="get">
+            <p>Choose Genre:</p>
+            <input type="text" name="Id" />
+            <input type="submit" value="Submit" />
+        </form>
+  
+</div>
+<br/>
+@Html.ActionLink("Create Category", "Create", "Library")

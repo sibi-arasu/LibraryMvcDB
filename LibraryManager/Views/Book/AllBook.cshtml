@@ -1,0 +1,21 @@
+﻿@model System.Data.DataTable
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Genre Name</th>
+    </tr>
+    @for (int i = 0; i < Model.Rows.Count; i++)
+    {
+        <tr>
+            <td> @Model.Rows[i][0]</td>
+            <td>  @Model.Rows[i][1]</td>
+            <td>  @Model.Rows[i][2]</td>
+
+        </tr>
+    }
+
+</table>
+
+<div>@Html.ActionLink("Back", "Index", "Library")</div>
+<div>@Html.ActionLink("Create Book", "Create1", "Book")</div>
