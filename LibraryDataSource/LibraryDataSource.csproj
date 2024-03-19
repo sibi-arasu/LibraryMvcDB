@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookDb.cs" />
+    <Compile Include="BookInterData.cs" />
     <Compile Include="CategoryDb.cs" />
+    <Compile Include="LibraryIData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

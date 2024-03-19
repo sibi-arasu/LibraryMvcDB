@@ -188,6 +188,9 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\LibraryDataSource\LibraryDataSource.csproj">
       <Project>{a2b192a1-ae5b-452d-b9d2-91706ea9b2c0}</Project>
       <Name>LibraryDataSource</Name>
