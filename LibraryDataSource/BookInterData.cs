@@ -17,9 +17,12 @@ namespace LibraryDataSource.DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "SELECT * FROM Book WHERE GenreName = @Id";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", id);
+                //string query = "SELECT * FROM Book WHERE GenreName = @Id";
+
+                SqlCommand cmd = new SqlCommand("BookSp", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "Get1");
+                cmd.Parameters.AddWithValue("@GenreName", id);
 
                 SqlDataAdapter sqlData1 = new SqlDataAdapter(cmd);
                 sqlData1.Fill(dataTable);
@@ -32,8 +35,11 @@ namespace LibraryDataSource.DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "Exec BookSp";
-                SqlCommand cmd = new SqlCommand(query, con);
+                //string query = "Exec BookSp";
+
+                SqlCommand cmd = new SqlCommand("BookSp", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "Get");
                 SqlDataAdapter sqlData1 = new SqlDataAdapter(cmd);
                 sqlData1.Fill(dataTable);
             }
@@ -45,9 +51,10 @@ namespace LibraryDataSource.DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "INSERT INTO Book (Book_Id, Name, GenreName) VALUES (@Id, @Name , @GenreName)";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", bookDb.Id);
+               // string query = "INSERT INTO Book (Book_Id, Name, GenreName) VALUES (@Book_Id, @Name , @GenreName)";
+                SqlCommand cmd = new SqlCommand("bookInsert", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Book_Id", bookDb.Id);
                 cmd.Parameters.AddWithValue("@Name", bookDb.Name);
                 cmd.Parameters.AddWithValue("@GenreName", bookDb.GenreName);
                 cmd.ExecuteNonQuery();
@@ -61,10 +68,14 @@ namespace LibraryDataSource.DAL
             DataTable dataTable = new DataTable();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "Select * From Book Where Book_Id = @ID";
+                //string query = "Select * From Book Where Book_Id = @ID";
                 con.Open();
-                SqlDataAdapter sqlData1 = new SqlDataAdapter(query, con);
-                sqlData1.SelectCommand.Parameters.AddWithValue("@Id", id);
+                SqlCommand cmd = new SqlCommand("BookSp", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "B4Put");
+                cmd.Parameters.AddWithValue("@Book_Id", id);
+                SqlDataAdapter sqlData1 = new SqlDataAdapter(cmd);
+                //sqlData1.SelectCommand.Parameters.AddWithValue("@Id", id);
                 sqlData1.Fill(dataTable);
             }
             return dataTable;
@@ -74,11 +85,14 @@ namespace LibraryDataSource.DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "Update Book set Name = @Name , GenreName = @GenreName Where Book_Id = @Id";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", bookDb.Id);
+                //string query = "Update Book set Name = @Name , GenreName = @GenreName Where Book_Id = @Id";
+                SqlCommand cmd = new SqlCommand("BookEdit", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+  
+                cmd.Parameters.AddWithValue("@Book_Id", bookDb.Id);
                 cmd.Parameters.AddWithValue("@Name", bookDb.Name);
                 cmd.Parameters.AddWithValue("@GenreName", bookDb.GenreName);
+                
                 cmd.ExecuteNonQuery();
 
             }
@@ -90,9 +104,12 @@ namespace LibraryDataSource.DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "Delete From Book Where Book_Id = @Id";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", id);
+                //string query = "Delete From Book Where Book_Id = @Id";
+
+                SqlCommand cmd = new SqlCommand("BookDelete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "Delete");
+                cmd.Parameters.AddWithValue("@Book_Id", id);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -101,9 +118,12 @@ namespace LibraryDataSource.DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
-                string query = "Delete From Book Where GenreName = @Id";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", id);
+               // string query = "Delete From Book Where GenreName = @Id";
+
+                SqlCommand cmd = new SqlCommand("BookDelete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "DeleteAll");
+                cmd.Parameters.AddWithValue("@Book_Id", id);
                 cmd.ExecuteNonQuery();
             }
         }
